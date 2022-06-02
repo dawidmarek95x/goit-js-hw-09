@@ -1,19 +1,26 @@
+// Import of flatpickr library
 import flatpickr from "flatpickr";
 import 'flatpickr/dist/flatpickr.min.css';
+
+// Import of Notiflix library
 import Notiflix from 'notiflix';
 import 'notiflix/dist/notiflix-3.2.5.min.css';
 
-const startBtn = document.querySelector("button[data-start]");
-const chosenDate = document.querySelector("#datetime-picker");
-const daysOutput = document.querySelector("[data-days]");
-const hoursOutput = document.querySelector("[data-hours]");
-const minutesOutput = document.querySelector("[data-minutes]");
-const secondsOutput = document.querySelector("[data-seconds]");
+// Optimizing function (shortening the record) for searching for elements on the page
+const qs = (selector) => document.querySelector(selector);
 
-let timer = null;
+// Search for input and output elements
+const startBtn = qs("button[data-start]");
+const chosenDate = qs("#datetime-picker");
+const daysOutput = qs("[data-days]");
+const hoursOutput = qs("[data-hours]");
+const minutesOutput = qs("[data-minutes]");
+const secondsOutput = qs("[data-seconds]");
 
+// Blocking the use of the "Start" button to make the user select a date
 lockingBtn(startBtn);
 
+// The parameter object for the flatpickr function
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -31,12 +38,15 @@ const options = {
   },
 };
 
+// Flatpickr function call
 flatpickr("#datetime-picker", options);
 
+// Calling the function after clicking on the "start" button
 startBtn.addEventListener("click", countdownTime);
 
+// Countdown function
 function countdownTime() {
-  timer = setInterval(() => {
+  const timer = setInterval(() => {
     lockingBtn(startBtn);
 
     const chosenDateInMs = new Date(chosenDate.value).getTime();
@@ -54,30 +64,25 @@ function countdownTime() {
       clearInterval(timer);
       unlockingBtn(startBtn);
     }
-
-    // Brakuje blokady buttona po wystartowaniu licznika!
   }, 1000);
 }
 
+// A function that adds 0 to the numbers of timer components, when the number contains less than two symbols
 function addLeadingZero(value) {
   valueToString = value.toString();
   return valueToString.padStart(2, "0");
 }
 
+// Function that converts Unix time to a number of days, hours, minutes, and seconds
 function convertMs(ms) {
-  // Number of milliseconds per unit of time
   const second = 1000;
   const minute = second * 60;
   const hour = minute * 60;
   const day = hour * 24;
 
-  // Remaining days
   const days = Math.floor(ms / day);
-  // Remaining hours
   const hours = Math.floor((ms % day) / hour);
-  // Remaining minutes
   const minutes = Math.floor(((ms % day) % hour) / minute);
-  // Remaining seconds
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
   return { days, hours, minutes, seconds };

@@ -16,3 +16,63 @@ img {
   display: block;
   max-width: 100%;
 }
+
+#datetime-picker {
+  margin-right: 5px;
+  padding: 5px 10px;
+  border: 1px solid blue;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+#datetime-picker:hover,
+#datetime-picker:focus {
+  border-color: #569ff7;
+}
+
+button[data-start] {
+  padding: 5px;
+  border: 1px solid blue;
+  border-radius: 5px;
+  font-size: 20px;
+  color: black;
+  background-color: #b0d2fc;
+  cursor: pointer;
+}
+
+button[data-start]:hover,
+button[data-start]:focus {
+  background-color: #77b4ff;
+}
+
+button[data-start]:disabled {
+  border-color: gray;
+  background-color: lightgrey;
+  color: gray;
+  cursor: default;
+}
+
+.timer {
+  display: flex;
+  margin-top: 10px;
+  padding: 0 5px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.field:not(:last-child) {
+  margin-right: 20px;
+}
+
+.value {
+  font-size: 40px;
+}
+
+.label {
+  font-weight: 500;
+  text-transform: uppercase;
+}
