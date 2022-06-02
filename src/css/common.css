@@ -30,7 +30,7 @@ img {
   border-color: #569ff7;
 }
 
-button[data-start] {
+button[type="button"] {
   padding: 5px;
   border: 1px solid blue;
   border-radius: 5px;
@@ -40,12 +40,12 @@ button[data-start] {
   cursor: pointer;
 }
 
-button[data-start]:hover,
-button[data-start]:focus {
+button[type="button"]:hover,
+button[type="button"]:focus {
   background-color: #77b4ff;
 }
 
-button[data-start]:disabled {
+button[type="button"]:disabled {
   border-color: gray;
   background-color: lightgrey;
   color: gray;
