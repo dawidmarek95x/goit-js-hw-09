@@ -17,6 +17,8 @@ const hoursOutput = qs("[data-hours]");
 const minutesOutput = qs("[data-minutes]");
 const secondsOutput = qs("[data-seconds]");
 
+let timer = null;
+
 // Blocking the use of the "Start" button to make the user select a date
 lockingBtn(startBtn);
 
@@ -46,7 +48,7 @@ startBtn.addEventListener("click", countdownTime);
 
 // Countdown function
 function countdownTime() {
-  const timer = setInterval(() => {
+  timer = setInterval(() => {
     lockingBtn(startBtn);
 
     const chosenDateInMs = new Date(chosenDate.value).getTime();
