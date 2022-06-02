@@ -6,18 +6,13 @@ import 'flatpickr/dist/flatpickr.min.css';
 import Notiflix from 'notiflix';
 import 'notiflix/dist/notiflix-3.2.5.min.css';
 
-// Optimizing function (shortening the record) for searching for elements on the page
-const qs = (selector) => document.querySelector(selector);
-
 // Search for input and output elements
-const startBtn = qs("button[data-start]");
-const chosenDate = qs("#datetime-picker");
-const daysOutput = qs("[data-days]");
-const hoursOutput = qs("[data-hours]");
-const minutesOutput = qs("[data-minutes]");
-const secondsOutput = qs("[data-seconds]");
-
-let timer = null;
+const startBtn = document.querySelector("button[data-start]");
+const chosenDate = document.querySelector("#datetime-picker");
+const daysOutput = document.querySelector("[data-days]");
+const hoursOutput = document.querySelector("[data-hours]");
+const minutesOutput = document.querySelector("[data-minutes]");
+const secondsOutput = document.querySelector("[data-seconds]");
 
 // Blocking the use of the "Start" button to make the user select a date
 lockingBtn(startBtn);
@@ -48,7 +43,7 @@ startBtn.addEventListener("click", countdownTime);
 
 // Countdown function
 function countdownTime() {
-  timer = setInterval(() => {
+  const timer = setInterval(() => {
     lockingBtn(startBtn);
 
     const chosenDateInMs = new Date(chosenDate.value).getTime();
