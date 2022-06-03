@@ -58,10 +58,10 @@ function countdownTime() {
 
     const {days, hours, minutes, seconds} = convertMs(timeLeft);
 
-    daysOutput.innerHTML = (days < 10) ? addLeadingZero(days) : days;
-    hoursOutput.innerHTML = (hours < 10) ? addLeadingZero(hours) : hours;
-    minutesOutput.innerHTML = (minutes < 10) ? addLeadingZero(minutes) : minutes;
-    secondsOutput.innerHTML = (seconds < 10) ? addLeadingZero(seconds) : seconds;
+    daysOutput.innerHTML = (String(days).length < 2) ? addLeadingZero(days) : days;
+    hoursOutput.innerHTML = (String(hours).length < 2) ? addLeadingZero(hours) : hours;
+    minutesOutput.innerHTML = (String(minutes).length < 2) ? addLeadingZero(minutes) : minutes;
+    secondsOutput.innerHTML = (String(seconds).length < 2) ? addLeadingZero(seconds) : seconds;
 
     if (timeLeft < 1000) {
       clearInterval(timer);
@@ -72,7 +72,7 @@ function countdownTime() {
 
 // A function that adds 0 to the numbers of timer components, when the number contains less than two symbols
 function addLeadingZero(value) {
-  valueToString = String(value);
+  const valueToString = String(value);
   return valueToString.padStart(2, "0");
 }
 
