@@ -6,13 +6,16 @@ import 'flatpickr/dist/flatpickr.min.css';
 import Notiflix from 'notiflix';
 import 'notiflix/dist/notiflix-3.2.5.min.css';
 
+// Optimizing function (shortening the record) for searching for elements on the page
+const qs = (selector) => document.querySelector(selector);
+
 // Search for input and output elements
-const startBtn = document.querySelector("button[data-start]");
-const chosenDate = document.querySelector("#datetime-picker");
-const daysOutput = document.querySelector("[data-days]");
-const hoursOutput = document.querySelector("[data-hours]");
-const minutesOutput = document.querySelector("[data-minutes]");
-const secondsOutput = document.querySelector("[data-seconds]");
+const startBtn = qs("button[data-start]");
+const chosenDate = qs("#datetime-picker");
+const daysOutput = qs("[data-days]");
+const hoursOutput = qs("[data-hours]");
+const minutesOutput = qs("[data-minutes]");
+const secondsOutput = qs("[data-seconds]");
 
 // Blocking the use of the "Start" button to make the user select a date
 lockingBtn(startBtn);
@@ -52,10 +55,10 @@ function countdownTime() {
 
     const {days, hours, minutes, seconds} = convertMs(timeLeft);
 
-    daysOutput.innerHTML = (days.toString().length < 2) ? addLeadingZero(days) : days;
-    hoursOutput.innerHTML = (hours.toString().length < 2) ? addLeadingZero(hours) : hours;
-    minutesOutput.innerHTML = (minutes.toString().length < 2) ? addLeadingZero(minutes) : minutes;
-    secondsOutput.innerHTML = (seconds.toString().length < 2) ? addLeadingZero(seconds) : seconds;
+    daysOutput.innerHTML = (String(days).length < 2) ? addLeadingZero(days) : days;
+    hoursOutput.innerHTML = (String(hours).length < 2) ? addLeadingZero(hours) : hours;
+    minutesOutput.innerHTML = (String(minutes).length < 2) ? addLeadingZero(minutes) : minutes;
+    secondsOutput.innerHTML = (String(seconds).length < 2) ? addLeadingZero(seconds) : seconds;
 
     if (timeLeft < 1000) {
       clearInterval(timer);
@@ -66,7 +69,7 @@ function countdownTime() {
 
 // A function that adds 0 to the numbers of timer components, when the number contains less than two symbols
 function addLeadingZero(value) {
-  valueToString = value.toString();
+  valueToString = String(value);
   return valueToString.padStart(2, "0");
 }
 
