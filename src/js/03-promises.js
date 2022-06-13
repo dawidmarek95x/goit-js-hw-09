@@ -2,31 +2,30 @@
 import Notiflix from 'notiflix';
 import 'notiflix/dist/notiflix-3.2.5.min.css';
 
+// Optimizing function (shortening the record) for searching for elements on the page
+const qs = selector => document.querySelector(selector);
+
 // Search for form.form element
-const form = document.querySelector(".form");
+const form = qs(".form");
 
 // Input element values
-const firstDelayInput = document.querySelector('[name="delay"]');
-const delayStep = document.querySelector('[name="step"]');
-const amount = document.querySelector('[name="amount"]');
+const firstDelayInput = qs('[name="delay"]');
+const delayStep = qs('[name="step"]');
+const amount = qs('[name="amount"]');
 
 // Calling the function after "submit" on the "Create promises" button
 form.addEventListener("submit", createManyPromises);
 
 // Event handler for making promises
-function createManyPromises(evt) {
-  evt.preventDefault();
+function createManyPromises(e) {
+  e.preventDefault();
 
   let delay = Number(firstDelayInput.value);
 
   for (let i = 1; i <= Number(amount.value); i++) {
     createPromise(i, delay)
-    .then(({ i, delay }) => {
-      Notiflix.Notify.success(`✅ Fulfilled promise ${i} in ${delay}ms`);
-    })
-    .catch(({ i, delay }) => {
-      Notiflix.Notify.failure(`❌ Rejected promise ${i} in ${delay}ms`);
-    });
+    .then(value => value)
+    .catch(error => error);
     delay += Number(delayStep.value);
   }
 }
@@ -37,9 +36,9 @@ function createPromise(position, delay) {
     setTimeout(() => {
       const shouldResolve = Math.random() > 0.3;
       if (shouldResolve) {
-        resolve({position, delay});
+        resolve(Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`));
       } else {
-        reject({position, delay});
+        reject(Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`));
       }
     }, delay);
   });
